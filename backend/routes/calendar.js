@@ -4,9 +4,9 @@ const router = express.Router();
 const CalendarController = require("../controllers/CalendarController");
 
 // Route to retrieve all the events
-router.get("/get-events", getAllEvents);
+router.get("/get-events", CalendarController.getAllEvents);
 
 // Route to add a new event
-router.post("/add-event", addEvent);
+router.post("/add-event", CalendarController.addEvent);
 
 module.exports = router;

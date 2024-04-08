@@ -26,7 +26,7 @@ const addEvent = async (req, res) => {
     .then((response) => {
       res.status(200).json({
         response,
-        message: "Category added successfully!",
+        message: "Event added successfully!",
       });
     })
     .catch((error) => {

@@ -11,6 +11,7 @@ const connectDb = require("./database/db");
 const toDoRoutes = require("./routes/toDo");
 const calendarRoutes = require("./routes/calendar");
 const categoryRoutes = require("./routes/category");
+const userRoutes = require("./routes/user");
 
 // import Express.js framework
 const express = require("express");
@@ -34,6 +35,7 @@ app.use(bodyParser.json()); // parse JSON bodies
 // load routes
 app.use("/", toDoRoutes); // mount to do routes on root path
 app.use("/", calendarRoutes);
+app.use("/", userRoutes);
 app.use("/", categoryRoutes); // mount category routes on root path
 
 // global error handler

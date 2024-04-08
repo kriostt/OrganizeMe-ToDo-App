@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs"); // Importing bcrypt for password hashing
 const jwt = require("jsonwebtoken"); // Importing jsonwebtoken for token generation
-const User = require("../models/userModel"); // Importing the User model
+const User = require("../models/User"); // Importing the User model
 const createError = require("../utils/appError"); // Importing custom error utility
 
 // Register User
