@@ -9,4 +9,8 @@ router.get("/get-events", CalendarController.getAllEvents);
 // Route to add a new event
 router.post("/add-event", CalendarController.addEvent);
 
+router.delete("/delete-event", CalendarController.deleteEvent);
+
+router.put("/edit-event", CalendarController.editEvent);
+
 module.exports = router;
