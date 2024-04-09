@@ -60,29 +60,34 @@ const Calendar = () => {
   };
 
   return (
-    <div>
+    <div className="calendar-container">
       <h2>OrganizeMe Calendar</h2>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} className="calendar-form-container">
         <input
           type="text"
           name="title"
           value={event.title}
           onChange={handleChange} // Changed from handleFormChange to handleChange
           placeholder="Enter title"
+          className="calendar-form-input"
         />
         <input
           type="date"
           name="date"
           value={event.date}
           onChange={handleChange} // Changed from handleFormChange to handleChange
+          className="calendar-form-input"
         />
-        <button type="submit">Add Note</button>
+        <button type="submit" className="calendar-form-button">
+          Add Note
+        </button>
       </form>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         weekends={true}
         events={events}
+        height="450px"
       />
     </div>
   );

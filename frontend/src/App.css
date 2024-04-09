@@ -295,16 +295,20 @@ h2 {
 
 /* Style for table header */
 .table th {
-  padding: 12px;
   text-align: left;
   background-color: #f8f9fa; /* Light Gray */
 }
 
 /* Style for table rows */
 .table td {
-  padding: 12px;
   text-align: center;
   border: 1px solid #ddd; /* Light Gray */
+}
+
+/* CSS */
+.table td,
+.table th {
+  padding: 1rem;
 }
 
 /* Style for table cell in first column */
@@ -360,4 +364,76 @@ h2 {
 
 .homepage-button:hover {
   background-color: #0056b3; /* Darker Blue */
+}
+
+/* Style for Add Category button */
+.btn-primary-category {
+  background-color: #1c72ced6;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-bottom: 30px;
+}
+
+.table-bordered {
+  margin-top: 25px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.icon-container {
+  display: inline-block;
+}
+
+.edit-icon {
+  margin-right: 0.5rem;
+  color: rgb(68, 68, 175);
+}
+
+.delete-icon {
+  color: rgb(141, 20, 20);
+}
+
+.logout-link:hover {
+  cursor: pointer;
+}
+
+.no-categories-message {
+  margin-top: 30px;
+}
+
+/* Calendar.css */
+
+.calendar-container {
+  margin-bottom: 20px;
+}
+
+.calendar-form-container {
+  margin-bottom: 20px;
+}
+
+.calendar-form-input {
+  margin-right: 10px;
+  padding: 5px 5px;
+  border-radius: 5px;
+}
+
+.calendar-form-button {
+  margin-top: 10px;
+  background-color: rgb(
+    98,
+    98,
+    188
+  ); /* Change the background color as needed */
+  color: white;
+  border: none;
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.calendar-form-button:hover {
+  background-color: rgb(105, 105, 145);
 }

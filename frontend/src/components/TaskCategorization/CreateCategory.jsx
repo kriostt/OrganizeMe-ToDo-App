@@ -64,7 +64,7 @@ const CreateCategory = () => {
         // if successful, reset the form and display success message
         resetForm();
         alert(res.data.message);
-        navigate("/");
+        navigate("/categories");
       }
     } catch (error) {
       console.log(error);
@@ -120,7 +120,7 @@ const CreateCategory = () => {
 
   // JSX for the form and page elements
   return (
-    <div>
+    <div className="category-form">
       <h2>Add Category</h2>
 
       {/* display validation errors if there's any */}
@@ -191,71 +191,12 @@ const CreateCategory = () => {
         </button>
 
         <button
-          onClick={() => navigate("/add")}
+          onClick={() => navigate("/home")}
           className="btn btn-danger btn-lg mr-3"
         >
           Cancel
         </button>
       </form>
-
-      <h2 id="categories-header">Available Categories</h2>
-
-      {/* check if list of categories exists */}
-      {categories && categories.length > 0 ? (
-        // display table of available categories
-        <table className="table table-bordered">
-          {/* table column titles */}
-          <thead className="thead-light">
-            <tr>
-              <th className="column-header col-2" scope="col">
-                Colour
-              </th>
-              <th className="column-header" scope="col">
-                Name
-              </th>
-              <th className="column-header col-2"></th>
-            </tr>
-          </thead>
-
-          {/* table rows */}
-          <tbody>
-            {/* map through list of categories and display each item in table row */}
-            {categories.map((category) => (
-              <tr key={category._id}>
-                {/* set the colour of the colour table cell to match the text */}
-                <td
-                  className={`text-center custom-category-${
-                    category && category.colour ? category.colour : "default"
-                  }`}
-                >
-                  {formatColourString(category.colour)}
-                </td>
-
-                <td className="text-center">{category.name}</td>
-
-                {/* buttons to edit or delete category*/}
-                <td className="text-center">
-                  <button
-                    onClick={() => navigate(`/edit-category/${category._id}`)}
-                    className="btn btn-primary mr-2 ml-2 py-1"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => navigate(`/delete-category/${category._id}`)}
-                    className="btn btn-danger mr-2 ml-2 py-1"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        // display message if there's no available categories
-        <p>No categories are available.</p>
-      )}
     </div>
   );
 };

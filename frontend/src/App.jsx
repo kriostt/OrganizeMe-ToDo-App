@@ -17,8 +17,8 @@ import Calendar from "./components/Calendar/Calendar";
 import Favourites from "./components/Favourites/Favourites";
 import Trash from "./components/Trash/Trash";
 import Navbar from "./components/Navbar";
-import Dashboard from "./components/Dashboard";
 import "./App.css";
+import CategoryList from "./components/TaskCategorization/CategoryList";
 
 function App() {
   // Using authentication context to check if user is authenticated
@@ -52,6 +52,8 @@ function App() {
 
             {/* route for adding a new to do list item */}
             <Route path="/add" element={<CreateToDo />} />
+
+            <Route path="/categories" element={<CategoryList />} />
 
             {/* route for adding a new category */}
             <Route path="/add-category" element={<CreateCategory />} />
