@@ -2,18 +2,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import { Avatar, Button, Card, Flex, Typography } from "antd";
 
 // component for getting to do list
 const ReadToDoList = () => {
   // state to store to do list
   const [toDoList, setToDoList] = useState([]);
-  const { userData, logout } = useAuth();
-
-  const handleLogout = async () => {
-    await logout();
-  };
 
   // get and set to do list from server
   const readToDoList = async () => {
@@ -64,35 +57,27 @@ const ReadToDoList = () => {
   return (
     <div>
       {/* link to navigate to Add To Do page */}
-      <Link to="/add" className="btn btn-primary mb-3">
+      <Link to="/add" className="btn btn-primary-task">
         Add Task
       </Link>
-      <Button
-        size="large"
-        type="primary"
-        className="profile-btn"
-        onClick={handleLogout}
-      >
-        Logout
-      </Button>
 
       {/* check if to do list exists */}
       {toDoList && toDoList.length > 0 ? (
         // display table with to do list
-        <table className="table table-bordered">
+        <table className="custom-table">
           {/* table column titles */}
-          <thead className="thead-light">
+          <thead className="custom-thead">
             <tr>
-              <th className="column-header col-2" scope="col">
+              <th className="custom-column-header custom-col-2" scope="col">
                 Category
               </th>
-              <th className="column-header col-2" scope="col">
+              <th className="custom-column-header custom-col-2" scope="col">
                 Title
               </th>
-              <th className="column-header" scope="col">
+              <th className="custom-column-header custom-col-2" scope="col">
                 Description
               </th>
-              <th className="column-header col-2" scope="col">
+              <th className="custom-column-header custom-col-2" scope="col">
                 Due Date
               </th>
             </tr>
