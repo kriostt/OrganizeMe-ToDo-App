@@ -16,6 +16,7 @@ router.post("/add", ToDoController.add);
 router.put("/bin/:id", ToDoController.moveToBin);
 // handle PUT requests for removing a task from the bin
 router.put("/bin/remove/:id", ToDoController.removeFromBin);
+// handle GET requests for getting a task from the bin
 router.get("/bin", ToDoController.getTasksInBin);
 
 module.exports = router; // Exporting the router for use in other files

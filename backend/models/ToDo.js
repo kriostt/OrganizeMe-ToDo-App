@@ -31,6 +31,8 @@ const toDoSchema = new Schema({
   dueDate: {
     type: Date,
   },
+
+  //field for bin
   bin: {
     type: Boolean,
     default: false,

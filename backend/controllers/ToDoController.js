@@ -82,7 +82,6 @@ const removeFromBin = (req, res, next) => {
     });
 };
 
-// In your ToDoController.js
 const getTasksInBin = (req, res, next) => {
   ToDo.find({ bin: true })
     .populate("category", ["name", "colour"])

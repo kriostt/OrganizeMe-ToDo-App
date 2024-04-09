@@ -12,7 +12,7 @@ const CategoryController = require("../controllers/CategoryController");
 router.get("/get-categories", CategoryController.getCategories);
 
 // handle GET requests for retrieving a single category
-router.get("/get-category/:id", CategoryController.getCategory)
+router.get("/get-category/:id", CategoryController.getCategory);
 
 // handle POST requests for adding a new category
 router.post("/add-category", CategoryController.addCategory);
