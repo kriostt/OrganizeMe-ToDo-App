@@ -26,42 +26,48 @@ function App() {
 
   return (
     <Router>
-      <Routes>
+      <div>
         {/* display navigation bar */}
-        <Route path="/navbar" element={<Navbar />} />
+        {isAuthenticated && <Navbar />}
+        {/* Layout for other components */}
+        <div className="content">
+          <Routes>
+            <Route
+              path="/"
+              // If user is not authenticated, render Register component, otherwise navigate to Dashboard
+              element={
+                !isAuthenticated ? <Register /> : <Navigate to="/home" />
+              }
+            />
+            <Route
+              path="/login"
+              // If user is not authenticated, render Login component, otherwise navigate to Dashboard
+              element={!isAuthenticated ? <Login /> : <Navigate to="/home" />}
+            />
+            <Route
+              path="/home"
+              // If user is authenticated, render Dashboard component, otherwise redirect to Login
+              element={isAuthenticated ? <ReadToDoList /> : <Login />}
+            />
 
-        <Route
-          path="/"
-          // If user is not authenticated, render Register component, otherwise navigate to Dashboard
-          element={!isAuthenticated ? <Register /> : <Navigate to="/home" />}
-        />
-        <Route
-          path="/login"
-          // If user is not authenticated, render Login component, otherwise navigate to Dashboard
-          element={!isAuthenticated ? <Login /> : <Navigate to="/home" />}
-        />
-        <Route
-          path="/home"
-          // If user is authenticated, render Dashboard component, otherwise redirect to Login
-          element={isAuthenticated ? <ReadToDoList /> : <Login />}
-        />
+            {/* route for adding a new to do list item */}
+            <Route path="/add" element={<CreateToDo />} />
 
-        {/* route for adding a new to do list item */}
-        <Route path="/add" element={<CreateToDo />} />
+            {/* route for adding a new category */}
+            <Route path="/add-category" element={<CreateCategory />} />
 
-        {/* route for adding a new category */}
-        <Route path="/add-category" element={<CreateCategory />} />
+            {/* route for editing a category */}
+            <Route path="/edit-category/:id" element={<UpdateCategory />} />
 
-        {/* route for editing a category */}
-        <Route path="/edit-category/:id" element={<UpdateCategory />} />
+            {/* route for deleting a category */}
+            <Route path="/delete-category/:id" element={<DeleteCategory />} />
 
-        {/* route for deleting a category */}
-        <Route path="/delete-category/:id" element={<DeleteCategory />} />
-
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/favourites" element={<Favourites />} />
-        <Route path="/trash" element={<Trash />} />
-      </Routes>
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/favourites" element={<Favourites />} />
+            <Route path="/trash" element={<Trash />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
   );
 }
