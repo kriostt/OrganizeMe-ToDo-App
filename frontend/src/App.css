@@ -12,6 +12,7 @@ body {
   justify-content: center;
   height: 100vh;
   background: #dadee8;
+  padding-top: 60px;
 }
 
 .form-container {
