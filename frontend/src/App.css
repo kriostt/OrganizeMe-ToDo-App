@@ -107,6 +107,18 @@ body {
   background-color: lightpink;
 }
 
+.custom-category-lightgray {
+  background-color: lightgray;
+}
+
+.custom-category-tan {
+  background-color: tan;
+}
+
+.custom-category-default {
+  background-color: white;
+}
+
 /* Style for Add Task button */
 .btn-primary-task {
   background-color: #1c72ced6;
