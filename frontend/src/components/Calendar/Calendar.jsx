@@ -1,29 +1,62 @@
-import React, { useState } from 'react';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from '@fullcalendar/interaction';
+import React, { useEffect, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import axios from "axios"; // Import axios for HTTP requests
 
 const Calendar = () => {
-  const [events, setEvents] = useState([
-    // Sample events data (replacing it with backend later)
-    { title: 'Event 1', date: '2024-03-25' },
-    { title: 'Event 2', date: '2024-03-27' },
-    { title: 'Event 3', date: '2024-03-30' },
-  ]);
-  const [formData, setFormData] = useState({ title: '', date: '' });
+  const [events, setEvents] = useState([]);
+  const [event, setEvent] = useState({
+    title: "",
+    data: "",
+  });
 
-  const handleFormChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEvent({ ...event, [name]: value });
   };
 
-  const handleFormSubmit = e => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-    // Creates a new event object from the form data
-    const newEvent = { title: formData.title, date: formData.date };
-    // Updates the events array with the new event
-    setEvents([...events, newEvent]);
-    // Clears the form data
-    setFormData({ title: '', date: '' });
+    handleAdd();
+  };
+
+  // add new event
+  const handleAdd = async () => {
+    try {
+      const res = await axios.post("http://localhost:3001/add-event", event);
+
+      if (res.status === 200) {
+        setEvent(res.data);
+        // if successful, reset the form and display success message
+        alert(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Update the event state and format it properly
+  const fetchEvents = async () => {
+    try {
+      const res = await axios.get("http://localhost:3001/get-events");
+
+      if (res.status === 200) {
+        // Format events to match FullCalendar's expectations
+        const formattedEvents = res.data.map((event) => ({
+          title: event.title,
+          start: event.date, // Assuming your event object has a 'date' property
+        }));
+
+        setEvents(formattedEvents); // Update events state
+      }
+    } catch (error) {
+      console.log("Error fetching events:", error);
+    }
   };
 
   return (
@@ -33,15 +66,15 @@ const Calendar = () => {
         <input
           type="text"
           name="title"
-          value={formData.title}
-          onChange={handleFormChange}
+          value={event.title}
+          onChange={handleChange} // Changed from handleFormChange to handleChange
           placeholder="Enter title"
         />
         <input
           type="date"
           name="date"
-          value={formData.date}
-          onChange={handleFormChange}
+          value={event.date}
+          onChange={handleChange} // Changed from handleFormChange to handleChange
         />
         <button type="submit">Add Note</button>
       </form>
