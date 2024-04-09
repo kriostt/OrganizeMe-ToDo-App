@@ -23,7 +23,7 @@ const Navbar = () => {
         </Link>
         <ul className="nav-items">
           <li className="nav-item">
-            <Link to="/category">Category</Link>
+            <Link to="/add-category">Category</Link>
           </li>
           <li className="nav-item">
             <Link to="/trash">Trash</Link>
