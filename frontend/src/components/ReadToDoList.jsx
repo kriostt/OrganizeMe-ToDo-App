@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./ReadToDoList.css";
 
 // component for getting to do list
 const ReadToDoList = () => {
@@ -143,17 +144,17 @@ const ReadToDoList = () => {
         placeholder="Search by Title or Description"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
-        className="form-control mb-3"
+        className="search-bar"
       />
 
-      <div className="row">
-        <div className="col">
+      <div className="filters-container">
+        <div>
           {/* category filter */}
           <select
             id="categoryFilter"
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="form-select mb-3"
+            className="category-filter"
           >
             <option value="All">All</option>
             {categories.map((category) => (
@@ -164,23 +165,21 @@ const ReadToDoList = () => {
           </select>
         </div>
 
-        <div className="col">
+        <div>
           {/* due date sort by button */}
           <button
             id="sortByDueDate"
             onClick={() => setSortByDueDateAsc(!sortByDueDateAsc)}
-            className="btn btn-primary mb-3"
+            className="sort-button"
           >
             {sortByDueDateAsc ? "Ascending" : "Descending"}
           </button>
         </div>
 
-        <div className="col">
-          {/* button to clear all filters */}
-          <button onClick={clearFilters} className="btn btn-secondary mb-3">
-            Clear Filters
-          </button>
-        </div>
+        {/* button to clear all filters */}
+        <button onClick={clearFilters} className="clear-filters-button">
+          Clear Filters
+        </button>
       </div>
 
       {/* horizontal line */}
@@ -190,7 +189,7 @@ const ReadToDoList = () => {
 
       {/* link to navigate to Add To Do page */}
       <div className="add-button">
-        <Link to="/add" className="btn btn-primary">
+        <Link to="/add" className="btn-primary-task">
           Add Task
         </Link>
       </div>
@@ -244,17 +243,7 @@ const ReadToDoList = () => {
                   {/* Button to move task to bin */}
                   <button
                     onClick={() => moveToBin(toDo._id)}
-                    style={{
-                      backgroundColor: "#f44336",
-                      color: "white",
-                      padding: "10px 10px",
-                      borderRadius: "5px",
-                      border: "none",
-                      cursor: "pointer",
-                      fontSize: "15px",
-                      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                      transition: "background-color 0.3s ease",
-                    }}
+                    className="bin-button"
                   >
                     Move to Bin
                   </button>
