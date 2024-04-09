@@ -233,13 +233,15 @@ h2 {
 
 /* Style for form groups */
 .form-group {
+  width: 100%;
   margin-bottom: 20px;
 }
 
 /* Style for form inputs */
 .form-control {
   width: 100%;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   font-size: 16px;
   border: 1px solid #ced4da; /* Gray */
   border-radius: 5px;
