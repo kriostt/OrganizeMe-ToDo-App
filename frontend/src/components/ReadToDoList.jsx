@@ -53,9 +53,34 @@ const ReadToDoList = () => {
     return formattedDate;
   };
 
+  const moveToBin = async (taskId) => {
+    try {
+      const res = await axios.put(`http://localhost:3001/bin/${taskId}`);
+      if (res.status === 200) {
+        // Update the state to reflect changes
+        readToDoList();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeFromBin = async (taskId) => {
+    try {
+      const res = await axios.put(`http://localhost:3001/bin/remove/${taskId}`);
+      if (res.status === 200) {
+        // Update the state to reflect changes
+        readToDoList();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // JSX for the component
   return (
     <div>
+      <h2>To Do List</h2>
       {/* link to navigate to Add To Do page */}
       <Link to="/add" className="btn btn-primary-task">
         Add Task
@@ -80,6 +105,9 @@ const ReadToDoList = () => {
               <th className="custom-column-header custom-col-2" scope="col">
                 Due Date
               </th>
+              <th className="custom-column-header custom-col-2" scope="col">
+                Actions
+              </th>
             </tr>
           </thead>
 
@@ -103,13 +131,32 @@ const ReadToDoList = () => {
                 <td className="text-center">{toDo.title}</td>
                 <td className="text-center">{toDo.description}</td>
                 <td className="text-center">{formatDate(toDo.dueDate)}</td>
+                <td className="text-center">
+                  {/* Button to move task to bin */}
+                  <button
+                    onClick={() => moveToBin(toDo._id)}
+                    style={{
+                      backgroundColor: "#f44336",
+                      color: "white",
+                      padding: "10px 10px",
+                      borderRadius: "5px",
+                      border: "none",
+                      cursor: "pointer",
+                      fontSize: "15px",
+                      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                      transition: "background-color 0.3s ease",
+                    }}
+                  >
+                    Move to Bin
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
         // display messsage if there's no to do list
-        <p>All caught up!</p>
+        <p className="no-tasks-message">All caught up!</p>
       )}
     </div>
   );

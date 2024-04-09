@@ -15,10 +15,10 @@ import UpdateCategory from "./components/TaskCategorization/UpdateCategory";
 import DeleteCategory from "./components/TaskCategorization/DeleteCategory";
 import Calendar from "./components/Calendar/Calendar";
 import Favourites from "./components/Favourites/Favourites";
-import Trash from "./components/Trash/Trash";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import CategoryList from "./components/TaskCategorization/CategoryList";
+import TaskBin from "./components/TaskBin/TaskBin";
 
 function App() {
   // Using authentication context to check if user is authenticated
@@ -66,7 +66,7 @@ function App() {
 
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/favourites" element={<Favourites />} />
-            <Route path="/trash" element={<Trash />} />
+            <Route path="/taskbin" element={<TaskBin />} />
           </Routes>
         </div>
       </div>

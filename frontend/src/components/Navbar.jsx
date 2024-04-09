@@ -23,10 +23,13 @@ const Navbar = () => {
         </Link>
         <ul className="nav-items">
           <li className="nav-item">
+            <Link to="/home">Home</Link>
+          </li>
+          <li className="nav-item">
             <Link to="/categories">Category</Link>
           </li>
           <li className="nav-item">
-            <Link to="/trash">Trash</Link>
+            <Link to="/taskbin">Task Bin</Link>
           </li>
           <li className="nav-item">
             <Link to="/favourites">Favourites</Link>

@@ -31,6 +31,10 @@ const toDoSchema = new Schema({
   dueDate: {
     type: Date,
   },
+  bin: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // define ToDo model based on schema
