@@ -1,8 +1,18 @@
 // import necessary module
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
+  const { logout } = useAuth(); // Destructure isAuthenticated and logout from useAuth hook
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.log("Failed to logout:", error.message);
+    }
+  };
   // JSX for navbar component
   return (
     <>
@@ -11,8 +21,6 @@ const Navbar = () => {
         <Link to="/home" className="navbar-logo">
           OrganizeMe
         </Link>
-
-        {/* unordered list for navigation items */}
         <ul className="nav-items">
           <li className="nav-item">
             <Link to="/category">Category</Link>
@@ -27,7 +35,9 @@ const Navbar = () => {
             <Link to="/calendar">Calendar</Link>
           </li>
           <li className="nav-item">
-            <a>Logout</a>
+            <a onClick={handleLogout} className="logout-link">
+              Logout
+            </a>
           </li>
         </ul>
       </nav>
