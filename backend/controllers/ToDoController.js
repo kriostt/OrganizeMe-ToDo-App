@@ -20,6 +20,22 @@ const index = (req, res, next) => {
     });
 };
 
+// get to do list by id
+const getToDoById = (req, res, next) => {
+  const id = req.params.id;
+
+  ToDo.findById(id)
+    .then((todo) => {
+      if (!todo) {
+        return res.status(404).json({ message: "ToDo item not found" });
+      }
+      res.status(200).json(todo);
+    })
+    .catch((error) => {
+      res.status(500).json({ message: "Internal server error", error: error });
+    });
+};
+
 // add new to do list item
 const add = (req, res, next) => {
   // create new to do list item with data in request body
@@ -46,6 +62,22 @@ const add = (req, res, next) => {
         error,
         // send an error message if an error occurs
         message: "An error occurred! Unable to create new to do list item.",
+      });
+    });
+};
+
+const remove = (req, res, next) => {
+  const taskId = req.params.id;
+
+  // Find the task by ID and remove it from the database
+  ToDo.findByIdAndDelete(taskId)
+    .then(() => {
+      res.status(200).json({ message: "Task deleted successfully" });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        message: "An error occurred while deleting the task",
+        error: error,
       });
     });
 };
@@ -97,5 +129,63 @@ const getTasksInBin = (req, res, next) => {
     });
 };
 
+const addToFavorites = (req, res, next) => {
+  const taskId = req.params.id;
+
+  ToDo.findByIdAndUpdate(taskId, { favorites: true })
+    .then(() => {
+      res.status(200).json({ message: "Task added to favorites successfully" });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        message: "An error occurred while adding task to favorites",
+        error: error,
+      });
+    });
+};
+
+const removeFromFavorites = (req, res, next) => {
+  const taskId = req.params.id;
+
+  ToDo.findByIdAndUpdate(taskId, { favorites: false })
+    .then(() => {
+      res
+        .status(200)
+        .json({ message: "Task removed from favorites successfully" });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        message: "An error occurred while removing task from favorites",
+        error: error,
+      });
+    });
+};
+
+const getFavorites = (req, res, next) => {
+  ToDo.find({ favorites: true })
+    .populate("category", ["name", "colour"])
+    .exec()
+    .then((response) => {
+      res.status(200).json(response);
+    })
+    .catch((error) => {
+      res.status(400).json({
+        message: "An error occurred! Unable to retrieve favorite tasks.",
+        error: error,
+      });
+    });
+};
+
 // export the controller methods
-module.exports = { index, add, moveToBin, removeFromBin, getTasksInBin };
+module.exports = {
+  index,
+  getToDoById,
+  add,
+  remove,
+  moveToBin,
+  removeFromBin,
+  getTasksInBin,
+  addToFavorites,
+  removeFromFavorites,
+  getFavorites,
+};

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashArrowUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import "./Favorites.css";
 
-const TaskBin = () => {
-  const [tasksInBin, setTasksInBin] = useState([]);
+const Favorites = () => {
+  // State to store favorite tasks
+  const [favoriteTasks, setFavoriteTasks] = useState([]);
 
-  const fetchTasksInBin = async () => {
+  // Function to fetch favorite tasks from the server
+  const fetchFavoriteTasks = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/bin");
+      const res = await axios.get("http://localhost:3001/favorites");
 
       if (res.status === 200) {
-        setTasksInBin(res.data);
+        setFavoriteTasks(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -19,25 +22,17 @@ const TaskBin = () => {
   };
 
   useEffect(() => {
-    fetchTasksInBin();
+    fetchFavoriteTasks();
   }, []);
 
-  const restoreFromBin = async (taskId) => {
+  // Function to remove a favorite task
+  const removeFavorite = async (taskId) => {
     try {
-      const res = await axios.put(`http://localhost:3001/bin/remove/${taskId}`);
+      const res = await axios.put(
+        `http://localhost:3001/favorites/remove/${taskId}`
+      );
       if (res.status === 200) {
-        fetchTasksInBin(); // Refresh tasks in the bin after restoration
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const deleteFromBin = async (taskId) => {
-    try {
-      const res = await axios.delete(`http://localhost:3001/remove/${taskId}`);
-      if (res.status === 200) {
-        fetchTasksInBin(); // Refresh tasks in the bin after deletion
+        fetchFavoriteTasks(); // Refresh favorite tasks after removal
       }
     } catch (error) {
       console.log(error);
@@ -63,8 +58,8 @@ const TaskBin = () => {
 
   return (
     <div>
-      <h2>Task Bin</h2>
-      {tasksInBin && tasksInBin.length > 0 ? (
+      <h2>Favorite Tasks</h2>
+      {favoriteTasks && favoriteTasks.length > 0 ? (
         <table className="custom-table">
           <thead className="custom-thead">
             <tr>
@@ -81,12 +76,12 @@ const TaskBin = () => {
                 Due Date
               </th>
               <th className="custom-column-header custom-col-2" scope="col">
-                Actions
+                Remove
               </th>
             </tr>
           </thead>
           <tbody>
-            {tasksInBin.map((task) => (
+            {favoriteTasks.map((task) => (
               <tr key={task._id}>
                 <td
                   className={`text-center custom-category-${
@@ -104,37 +99,10 @@ const TaskBin = () => {
                 <td className="text-center">{formatDate(task.dueDate)}</td>
                 <td className="text-center">
                   <button
-                    onClick={() => restoreFromBin(task._id)}
-                    style={{
-                      backgroundColor: "#4CAF50",
-                      color: "white",
-                      padding: "5px 10px",
-                      borderRadius: "5px",
-                      border: "none",
-                      cursor: "pointer",
-                      fontSize: "15px",
-                      marginRight: "10px",
-                      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                      transition: "background-color 0.3s ease",
-                    }}
+                    className="favorite-button"
+                    onClick={() => removeFavorite(task._id)}
                   >
-                    <FontAwesomeIcon icon={faTrashArrowUp} />
-                  </button>
-                  <button
-                    onClick={() => deleteFromBin(task._id)}
-                    style={{
-                      backgroundColor: "#B22222",
-                      color: "white",
-                      padding: "5px 10px",
-                      borderRadius: "5px",
-                      border: "none",
-                      cursor: "pointer",
-                      fontSize: "15px",
-                      boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                      transition: "background-color 0.3s ease",
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
+                    <FontAwesomeIcon icon={faStar} />
                   </button>
                 </td>
               </tr>
@@ -142,10 +110,10 @@ const TaskBin = () => {
           </tbody>
         </table>
       ) : (
-        <p>No tasks in the bin</p>
+        <p>No favorite tasks</p>
       )}
     </div>
   );
 };
 
-export default TaskBin;
+export default Favorites;

@@ -37,6 +37,12 @@ const toDoSchema = new Schema({
     type: Boolean,
     default: false,
   },
+
+  //field for favorites
+  favorites: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // define ToDo model based on schema

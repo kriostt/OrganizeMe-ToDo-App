@@ -32,7 +32,7 @@ const Navbar = () => {
             <Link to="/taskbin">Task Bin</Link>
           </li>
           <li className="nav-item">
-            <Link to="/favourites">Favourites</Link>
+            <Link to="/favorites">Favorites</Link>
           </li>
           <li className="nav-item">
             <Link to="/calendar">Calendar</Link>

@@ -1,4 +1,15 @@
 .calendar-button-sm {
   font-size: 12px;
-  padding: 5px 10px;
+  padding: 5px 5px;
+  background-color: #7f3936;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.calendar-button-sm:hover {
+  background-color: #d43f3a;
 }

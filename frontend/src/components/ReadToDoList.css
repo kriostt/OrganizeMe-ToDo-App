@@ -10,6 +10,15 @@
   padding-top: 8px;
   padding-bottom: 8px;
   margin-bottom: 10px;
+  border: 1px solid #7d7d7d;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-bar::placeholder {
+  color: #999;
+  padding-left: 5px;
 }
 
 .filters-container {
@@ -23,6 +32,7 @@
 .sort-button,
 .clear-filters-button {
   padding: 8px;
+  border-radius: 5px;
 }
 
 .category-filter {
@@ -30,8 +40,15 @@
 }
 
 .sort-button {
+  background-color: rgb(120, 113, 160);
   margin-left: 10px;
   width: 150px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  margin-left: 20px;
 }
 
 .clear-filters-button {
@@ -97,4 +114,34 @@
 
 .bin-button:hover {
   background-color: #d32f2f;
+}
+
+.to-do-list {
+  margin-top: 30px;
+}
+
+.horizontal-line {
+  margin-top: 30px;
+}
+
+.favorite-button,
+.not-favorite-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.favorite-button:focus,
+.not-favorite-button:focus {
+  outline: none;
+}
+
+.favorite-button .fa-star,
+.not-favorite-button .fa-star {
+  color: gold;
+  font-size: 20px;
+}
+
+.not-favorite-button .fa-star {
+  color: gray;
 }

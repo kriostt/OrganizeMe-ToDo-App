@@ -4,6 +4,8 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import axios from "axios";
 import "./Calendar.css"; // Import CSS file for additional styling
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons"; // Assuming you're using the free solid icons
 
 const Calendar = () => {
   // States to manage events and new event inputs
@@ -147,13 +149,13 @@ const Calendar = () => {
               className="calendar-button-sm"
               onClick={() => handleDeleteEvent(eventInfo.event.id)}
             >
-              Delete
+              <FontAwesomeIcon icon={faTrashAlt} />
             </button>
             <button
               className="calendar-button-sm"
               onClick={() => handleEditEvent(eventInfo.event.id)}
             >
-              Edit
+              <FontAwesomeIcon icon={faEdit} />
             </button>
           </div>
         )}

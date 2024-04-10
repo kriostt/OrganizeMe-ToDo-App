@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./ReadToDoList.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 // component for getting to do list
 const ReadToDoList = () => {
@@ -123,9 +127,19 @@ const ReadToDoList = () => {
     }
   };
 
-  const removeFromBin = async (taskId) => {
+  const toggleFavorites = async (taskId, isFavorite) => {
     try {
-      const res = await axios.put(`http://localhost:3001/bin/remove/${taskId}`);
+      // Determine the new favorite status based on the current status
+      const newFavoriteStatus = !isFavorite;
+
+      // Define the endpoint based on the new favorite status
+      const endpoint = newFavoriteStatus ? "favorites" : "favorites/remove";
+
+      // Send a request to update the task's favorite status
+      const res = await axios.put(
+        `http://localhost:3001/${endpoint}/${taskId}`
+      );
+
       if (res.status === 200) {
         // Update the state to reflect changes
         readToDoList();
@@ -133,6 +147,15 @@ const ReadToDoList = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const renderStarIcon = (isFavorite) => {
+    return (
+      <FontAwesomeIcon
+        icon={isFavorite ? solidStar : regularStar}
+        className={isFavorite ? "favorite-star" : "not-favorite-star"}
+      />
+    );
   };
 
   // JSX for the component
@@ -183,9 +206,9 @@ const ReadToDoList = () => {
       </div>
 
       {/* horizontal line */}
-      <hr />
+      <hr className="horizontal-line" />
 
-      <h2>To Do List</h2>
+      <h2 className="to-do-list">To Do List</h2>
 
       {/* link to navigate to Add To Do page */}
       <div className="add-button">
@@ -214,7 +237,10 @@ const ReadToDoList = () => {
                 Due Date
               </th>
               <th className="custom-column-header custom-col-2" scope="col">
-                Actions
+                Bin
+              </th>
+              <th className="custom-column-header custom-col-2" scope="col">
+                Favorite
               </th>
             </tr>
           </thead>
@@ -245,7 +271,19 @@ const ReadToDoList = () => {
                     onClick={() => moveToBin(toDo._id)}
                     className="bin-button"
                   >
-                    Move to Bin
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </td>
+
+                <td className="text-center">
+                  {/* Button to toggle favorites */}
+                  <button
+                    onClick={() => toggleFavorites(toDo._id, toDo.favorites)}
+                    className={
+                      toDo.favorites ? "favorite-button" : "not-favorite-button"
+                    }
+                  >
+                    {renderStarIcon(toDo.favorites)}
                   </button>
                 </td>
               </tr>

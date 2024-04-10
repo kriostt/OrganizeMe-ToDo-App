@@ -14,11 +14,12 @@ import CreateCategory from "./components/TaskCategorization/CreateCategory";
 import UpdateCategory from "./components/TaskCategorization/UpdateCategory";
 import DeleteCategory from "./components/TaskCategorization/DeleteCategory";
 import Calendar from "./components/Calendar/Calendar";
-import Favourites from "./components/Favourites/Favourites";
+
 import Navbar from "./components/Navbar";
 import "./App.css";
 import CategoryList from "./components/TaskCategorization/CategoryList";
 import TaskBin from "./components/TaskBin/TaskBin";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
   // Using authentication context to check if user is authenticated
@@ -64,8 +65,13 @@ function App() {
             {/* route for deleting a category */}
             <Route path="/delete-category/:id" element={<DeleteCategory />} />
 
+            {/* route for calendar */}
             <Route path="/calendar" element={<Calendar />} />
-            <Route path="/favourites" element={<Favourites />} />
+
+            {/* route for favorites */}
+            <Route path="/favorites" element={<Favorites />} />
+
+            {/* route for task bin */}
             <Route path="/taskbin" element={<TaskBin />} />
           </Routes>
         </div>
